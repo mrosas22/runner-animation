@@ -29,7 +29,7 @@ function init() {
 }
 
 resources.load([
-    './images/commando.png',
+    './images/player.png',
     './images/terrain.png',
     './images/running.png'
 ]);
@@ -90,17 +90,43 @@ function Animation(spritesheet, frameSpeed, startFrame, endFrame) {
 
 //CREATE PLAYER
 spritesheet = new SpriteSheet('./images/running.png', 144, 194);
-walk = new Animation(spritesheet, 10, 0, 5);
+walk = new Animation(spritesheet, 20, 0, 1);
+
+
+
 
  //render the image
 function update(){
     ctx.fillStyle = terrainPattern;
     ctx.clearRect(0,0,canvas.width,canvas.height);
     //Updating the frame 
-    walk.update();
+    // walk.update();
     //Drawing the image 
-    walk.draw(12.5, 12.5);
+    walk.draw(15, 15);
     // ctx.drawImage(character,srcX,srcY,width,height,x,y,width,height);
+}
+ //hanlde input
+ function moveForward(){
+
+ }
+
+//move player
+document.onkeydown = function(event){
+    // console.log(event.keyCode);
+    switch(event.keyCode){
+        // case 37:// back
+        //     moveBackwards();
+        //     break;
+        case 39: // front
+            moveForward();
+            break;
+        // case 38: // jump
+        //     player.speedY -= 10;
+        //     break; 
+        // case 16: // shoot
+        //     player.shoot()
+        //     break;
+    }
 }
 // function moveRight(){
 //     right = true; 

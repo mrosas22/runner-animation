@@ -1,5 +1,5 @@
 (function() {
-    function SpriteSheet(url, frameWidth, frameHeight) {
+    function SpriteSheet(path, frameWidth, frameHeight) {
         this.image = new Image();
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
