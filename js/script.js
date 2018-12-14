@@ -29,7 +29,7 @@ function init() {
 }
 
 resources.load([
-    './images/player.png',
+    './images/commando.png',
     './images/terrain.png',
     './images/running.png'
 ]);
@@ -37,6 +37,13 @@ resources.onReady(init);
 
 //global variables
 var terrainPattern;
+
+//A vector for a 2d space
+function Vector(x, y) {
+    // position
+    this.x = x || 0;
+    this.y = y || 0;
+  }
 
 function SpriteSheet(path, frameWidth, frameHeight) {
     this.image = new Image();
@@ -89,9 +96,30 @@ function Animation(spritesheet, frameSpeed, startFrame, endFrame) {
   }
 
 //CREATE PLAYER
-spritesheet = new SpriteSheet('./images/running.png', 144, 194);
-walk = new Animation(spritesheet, 20, 0, 1);
+function Player(x,y){
+    this.width = 144;
+    this.height = 194;
+    // this.x = x;
+    // this.y = y;
+    this.sheet = new SpriteSheet('./images/running.png', this.width, this.height);
+    this.walk = new Animation (this.sheet, 20, 0,5);
+    this.anim = this.walk;
+    Vector.call(this, x, y);
+    this.draw = function(){
+        this.anim.draw(this.x, this.y);
+    };
+    this.run = function(){
+        this.anim.update(this.x, this.y);
+    }
+}
+Player.prototype = Object.create(Vector.prototype);
 
+
+// spritesheet = new SpriteSheet('./images/running.png', 144, 194);
+// walk = new Animation(spritesheet, 20, 0, 1);
+
+// Game state
+let player = new Player(15, 15)
 
 
 
@@ -100,14 +128,14 @@ function update(){
     ctx.fillStyle = terrainPattern;
     ctx.clearRect(0,0,canvas.width,canvas.height);
     //Updating the frame 
-    // walk.update();
+    player.run();
     //Drawing the image 
-    walk.draw(15, 15);
+    player.draw();
     // ctx.drawImage(character,srcX,srcY,width,height,x,y,width,height);
 }
- //hanlde input
+ //handle input
  function moveForward(){
-
+    player.run();
  }
 
 //move player
@@ -118,6 +146,7 @@ document.onkeydown = function(event){
         //     moveBackwards();
         //     break;
         case 39: // front
+        console.log('please move')
             moveForward();
             break;
         // case 38: // jump
