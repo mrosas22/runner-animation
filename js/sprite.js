@@ -48,6 +48,6 @@
             spritesheet.frameWidth, spritesheet.frameHeight);
         };
       }
-
+    
     window.Sprite = Sprite;
 })();
